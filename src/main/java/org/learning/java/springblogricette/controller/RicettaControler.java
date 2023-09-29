@@ -1,6 +1,8 @@
 package org.learning.java.springblogricette.controller;
 
 import jakarta.validation.Valid;
+import org.learning.java.springblogricette.model.Categoria;
+import org.learning.java.springblogricette.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -22,7 +24,7 @@ public class RicettaControler {
     RicettaRepository ricettaRepository;
 
     @Autowired
-
+    CategoryRepository categoryRepository;
     //Metodo che mostra la lista delle ricette
     @GetMapping
     public String index (Model model){
@@ -34,6 +36,8 @@ public class RicettaControler {
     //METODO PER LA CREATE DI UNA RICETTA
     @GetMapping("/create")
     public String create(Model model){
+        List<Categoria> categoriaList = categoryRepository.findAll();
+        model.addAttribute("categoryList", categoriaList);
         model.addAttribute("ricetta", new Ricetta());
     return "nuovaricetta";
     }
@@ -42,6 +46,7 @@ public class RicettaControler {
     public String doCreate(@Valid@ModelAttribute("ricetta") Ricetta formRicetta, Model model, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             model.addAttribute("ricettaList",ricettaRepository.findAll());
+            model.addAttribute("categoryList", categoryRepository.findAll());
             return "nuovaricetta";
         }
         ricettaRepository.save(formRicetta);
@@ -55,6 +60,7 @@ public class RicettaControler {
         Optional<Ricetta> ricettaOptional= ricettaRepository.findById(id);
         if(ricettaOptional.isPresent()){
             model.addAttribute("ricetta",ricettaOptional.get());
+            model.addAttribute("categoryList", categoryRepository.findAll());
             return "modifica";
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -63,6 +69,7 @@ public class RicettaControler {
     @PostMapping("/edit/{id}")
     public String doEdit(@PathVariable Integer id, Model model, @Valid@ModelAttribute("formRicetta") Ricetta formRicetta, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
+            model.addAttribute("categoryList", categoryRepository.findAll());
             return "modifica";
         }
         ricettaRepository.save(formRicetta);

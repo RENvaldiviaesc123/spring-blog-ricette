@@ -94,6 +94,20 @@
                 </ul>
             </div>
         </div>
+        <!-- categorie -->
+        <div class="mb-3">
+            <label for="categoria">Seleziona tipo di piatto</label>
+            <select id="categoria" class="form-select" th:field="*{categoria}" th:errorClass="is-invalid">
+                <option value="">--Scegli un tipo--</option>
+                <option th:each="categoria : ${categoryList}" th:text="${categoria.name}"
+                        th:value="${categoria.id}"></option>
+            </select>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('categoria')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('categoria')}" th:text="${err}"></li>
+                </ul>
+            </div>
+        </div>
         <!--Pulsanti per inviare il form e per tornare alla lista delle ricette-->
         <div class="mb-3">
             <button type="submit" class="btn btn-primary">Salva</button>
