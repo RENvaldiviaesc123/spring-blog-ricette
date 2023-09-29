@@ -7,6 +7,8 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.List;
+
 @Entity
 @Table(name = "recipes")
 public class Ricetta {
@@ -29,6 +31,10 @@ public class Ricetta {
     @Column(length = 500)
     @NotBlank(message = "Inserisca una descrizione")
     private String description;
+
+    @OneToMany(mappedBy = "ricetta", cascade = {CascadeType.REMOVE})
+    private List<Categoria> categoriaList ;
+
 
     //GETTER E SETTER
 
@@ -88,6 +94,13 @@ public class Ricetta {
         this.description = description;
     }
 
+    public List<Categoria> getCategoriaList() {
+        return categoriaList;
+    }
+
+    public void setCategoriaList(List<Categoria> categoriaList) {
+        this.categoriaList = categoriaList;
+    }
 
     //METODI
 
