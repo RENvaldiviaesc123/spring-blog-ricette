@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -19,6 +19,38 @@
     <title>Ricette</title>
 </head>
 <body>
+<div class="container text-center">
 <h1>Le nostre ricette</h1>
+
+    <!--AGGIUNGI UN'ALTRA RICETTA ALLA LISTA-->
+    <div>
+        <a class="btn btn-primary" th:href="@{/ricette/create}">Aggiungi una nuova ricetta</a>
+    </div>
+    <!-- CARD PER LE RICETTE -->
+        <div class="row">
+            <div class="">
+                <div class="card" style="width: 18rem;" th:each="ricetta : ${recipes}">
+                    <img th:src="${ricetta.foto}" class="card-img-top" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${ricetta.title}"></h5>
+                        <p class="card-text" th:text="${ricetta.description}"></p>
+                        <a class="btn btn-primary" th:href="@{/ricette/show/{id}(id=${ricetta.id})}">
+                            <i class="fa-solid fa-book"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
 </body>
 </html>

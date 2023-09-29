@@ -15,6 +15,8 @@ public class Ricetta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @NotBlank(message = "Inserisca alcun ingrediente")
+    private String title;
+    @NotBlank(message = "Inserisca alcun ingrediente")
     private String ingredients;
     @NotBlank(message = "Aggiungi una foto")
     private String foto;
@@ -36,6 +38,14 @@ public class Ricetta {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getIngredients() {
