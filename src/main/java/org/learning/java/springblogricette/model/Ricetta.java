@@ -32,8 +32,8 @@ public class Ricetta {
     @NotBlank(message = "Inserisca una descrizione")
     private String description;
 
-    @OneToMany(mappedBy = "ricetta", cascade = {CascadeType.REMOVE})
-    private List<Categoria> categoriaList ;
+    @ManyToOne
+    private Categoria categoria ;
 
 
     //GETTER E SETTER
@@ -94,12 +94,12 @@ public class Ricetta {
         this.description = description;
     }
 
-    public List<Categoria> getCategoriaList() {
-        return categoriaList;
+    public Categoria getCategoria() {
+        return categoria;
     }
 
-    public void setCategoriaList(List<Categoria> categoriaList) {
-        this.categoriaList = categoriaList;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
     //METODI

@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.List;
+
 @Entity
 @Table(name = "categories")
 public class Categoria {
@@ -15,9 +17,9 @@ public class Categoria {
     @NotBlank(message = "Inserisce una categoria")
     private String name;
 
-    @ManyToOne
+    @OneToMany(mappedBy = "categoria", cascade = {CascadeType.REMOVE})
     @NotNull
-    private Ricetta ricetta;
+    private List<Ricetta> ricettaList;
 
     //GETTER E SETTER
 
@@ -37,14 +39,13 @@ public class Categoria {
         this.name = name;
     }
 
-    public Ricetta getRicetta() {
-        return ricetta;
+    public List<Ricetta> getRicettaList() {
+        return ricettaList;
     }
 
-    public void setRicetta(Ricetta ricetta) {
-        this.ricetta = ricetta;
+    public void setRicettaList(List<Ricetta> ricettaList) {
+        this.ricettaList = ricettaList;
     }
-
 
     //METODI
 

@@ -20,6 +20,9 @@ import java.util.Optional;
 public class RicettaControler {
     @Autowired
     RicettaRepository ricettaRepository;
+
+    @Autowired
+
     //Metodo che mostra la lista delle ricette
     @GetMapping
     public String index (Model model){
@@ -51,7 +54,7 @@ public class RicettaControler {
     public String edit(@PathVariable Integer id, Model model){
         Optional<Ricetta> ricettaOptional= ricettaRepository.findById(id);
         if(ricettaOptional.isPresent()){
-            model.addAttribute("ricetta",ricettaOptional);
+            model.addAttribute("ricetta",ricettaOptional.get());
             return "modifica";
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
