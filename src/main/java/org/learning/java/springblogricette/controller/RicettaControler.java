@@ -2,17 +2,18 @@ package org.learning.java.springblogricette.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import org.learning.java.springblogricette.model.Ricetta;
 import org.learning.java.springblogricette.repository.RicettaRepository;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/ricette")
@@ -50,6 +51,18 @@ public class RicettaControler {
 
     //METODO PER LA DELETE DI UNA RICETTA
 
+    //METODO SHOW CHE MOSTRA I DETTAGLI DI UNA RICETTA
+        @GetMapping("/show/{ricettaId}")
+        public String show (@PathVariable("ricettaId") Integer id, Model model){
+            Optional<Ricetta> ricettaOptional = ricettaRepository.findById(id);
 
+            if(ricettaOptional.isPresent()) {
+            Ricetta ricettaFromDb = ricettaOptional.get();
+            model.addAttribute("ricetta", ricettaFromDb);
+            return "/detail";
+            } else {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            }
+        }
 
 }
