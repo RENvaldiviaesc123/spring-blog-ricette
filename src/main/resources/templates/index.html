@@ -28,8 +28,8 @@
     </div>
     <!-- CARD PER LE RICETTE -->
         <div class="row">
-            <div class="">
-                <div class="card" style="width: 18rem;" th:each="ricetta : ${recipes}">
+            <div class="col-3" th:each="ricetta : ${recipes}">
+                <div class="card" style="" >
                     <img th:src="${ricetta.foto}" class="card-img-top" alt="">
                     <div class="card-body">
                         <h5 class="card-title" th:text="${ricetta.title}"></h5>
