@@ -47,9 +47,35 @@ public class RicettaControler {
 
 
     //METODO PER UNA UPDATE DI UNA RICETTA
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Integer id, Model model){
+        Optional<Ricetta> ricettaOptional= ricettaRepository.findById(id);
+        if(ricettaOptional.isPresent()){
+            model.addAttribute("ricetta",ricettaOptional);
+            return "/edit";
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+    }
+    @PostMapping("/edit/{id}")
+    public String doEdit(@PathVariable Integer id, Model model, @Valid@ModelAttribute("formRicetta") Ricetta formRicetta, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "/edit";
+        }
+        ricettaRepository.save(formRicetta);
+        return "redirect:/ricette";
+        }
+
 
 
     //METODO PER LA DELETE DI UNA RICETTA
+    @PostMapping("/delete/{id}")
+    public String delete (@PathVariable Integer id){
+    ricettaRepository.deleteById(id);
+    return "redirect:/ricette";
+    }
+
+
 
     //METODO SHOW CHE MOSTRA I DETTAGLI DI UNA RICETTA
         @GetMapping("/show/{ricettaId}")
