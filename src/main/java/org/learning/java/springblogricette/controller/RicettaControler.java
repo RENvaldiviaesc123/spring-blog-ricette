@@ -48,19 +48,19 @@ public class RicettaControler {
 
     //METODO PER UNA UPDATE DI UNA RICETTA
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable("id") Integer id, Model model){
+    public String edit(@PathVariable Integer id, Model model){
         Optional<Ricetta> ricettaOptional= ricettaRepository.findById(id);
         if(ricettaOptional.isPresent()){
             model.addAttribute("ricetta",ricettaOptional);
-            return "/modifica";
+            return "modifica";
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
     @PostMapping("/edit/{id}")
-    public String doEdit(@PathVariable("id") Integer id, Model model, @Valid@ModelAttribute("formRicetta") Ricetta formRicetta, BindingResult bindingResult){
+    public String doEdit(@PathVariable Integer id, Model model, @Valid@ModelAttribute("formRicetta") Ricetta formRicetta, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return "/modifica";
+            return "modifica";
         }
         ricettaRepository.save(formRicetta);
         return "redirect:/ricette";
