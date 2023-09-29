@@ -3,6 +3,7 @@ package java.org.learning.java.springblogricette.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -20,6 +21,7 @@ public class Ricetta {
     @NotBlank(message = "Non dimenticare il tempo")
     private String time;
     @Max(15)
+    @Min(1)
     @NotNull
     private Integer portions;
     @Column(length = 500)
