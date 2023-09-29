@@ -1,4 +1,4 @@
-package java.org.learning.java.springblogricette;
+package org.learning.java.springblogricette;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

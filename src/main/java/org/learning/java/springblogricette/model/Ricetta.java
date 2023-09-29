@@ -1,4 +1,4 @@
-package java.org.learning.java.springblogricette.model;
+package org.learning.java.springblogricette.model;
 
 
 import jakarta.persistence.*;
